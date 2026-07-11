@@ -1,475 +1,413 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Janus — Grounding machine intelligence</title>
-<meta name="description" content="Consented movement in. Defensible signal out. Janus powers location intelligence for teams that build in the real world.">
-<script>document.documentElement.className+=' js'</script>
+<title>Janus — The Proof Layer</title>
 <style>
-:root{
-  --paper:#F6F4EF; --ink:#1A1815; --cobalt:#1E3A8A; --map:#ECE5D5; --elev:#FBFAF7;
-  --line:rgba(26,24,21,.12); --line-soft:rgba(26,24,21,.07);
-  --ink-60:rgba(26,24,21,.62); --ink-45:rgba(26,24,21,.45);
-  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
-  --mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.62;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-::selection{background:var(--cobalt);color:var(--paper)}
-a{color:inherit;text-decoration:none}
-a:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
-.wrap{max-width:1240px;margin:0 auto;padding-inline:clamp(22px,5.5vw,76px)}
-.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-45);display:flex;align-items:center;gap:14px;margin-bottom:clamp(30px,4.5vw,48px)}
-.eyebrow::after{content:"";height:1px;background:var(--line);flex:0 0 56px}
-section{border-top:1px solid var(--line);padding-block:clamp(92px,12vw,170px)}
-h2{font-weight:400;font-size:clamp(34px,4.4vw,58px);line-height:1.07;letter-spacing:-.014em;max-width:15em;text-wrap:balance}
-.lede{font-size:clamp(19px,2.1vw,25px);line-height:1.52;max-width:31em;margin-top:clamp(22px,3vw,34px)}
-.fold-close{font-style:italic;font-size:clamp(19px,2.1vw,24px);line-height:1.5;margin-top:clamp(44px,6vw,68px);max-width:30em;color:var(--ink)}
-/* ---------- nav ---------- */
-header{padding:clamp(20px,3vw,30px) 0;position:relative;z-index:3}
-.nav{display:flex;justify-content:space-between;align-items:baseline;gap:18px}
-.brand{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;letter-spacing:.34em}
-.brand svg{flex:none;transform:translateY(1px)}
-.nav-links{display:flex;align-items:baseline;gap:clamp(14px,2.6vw,30px);font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-60)}
-.nav-links a:hover{color:var(--ink)}
-.nav-dot{color:var(--ink-45)}
-/* ---------- hero ---------- */
-.hero{position:relative;border-top:0;padding-block:clamp(84px,14vh,190px) clamp(104px,16vh,212px);overflow:visible}
-.hex-bg{position:absolute;right:max(-140px,-12vw);top:-90px;width:min(60vw,780px);height:auto;pointer-events:none;z-index:0}
-.hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr;gap:clamp(44px,7vw,116px);align-items:end}
-h1{font-weight:400;font-size:clamp(46px,9vw,106px);line-height:1.02;letter-spacing:-.022em;max-width:9.5em;text-wrap:balance}
-.rail-lede{font-style:italic;font-size:clamp(19px,1.7vw,22px);line-height:1.45}
-.rail-rule{width:52px;height:1px;background:var(--ink);opacity:.65;margin:22px 0}
-.rail-body{font-size:16.5px;line-height:1.65;color:var(--ink-60);max-width:24em}
-.rail-body strong{color:var(--ink);font-weight:600}
-/* ---------- the gap ---------- */
-.beats{display:grid;gap:clamp(46px,6.5vw,76px);margin-top:clamp(40px,6vw,68px);max-width:46em}
-.beat{display:grid;grid-template-columns:56px 1fr;gap:clamp(14px,2.5vw,26px)}
-.beat-n{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--ink-45);padding-top:.85em}
-.beat p{font-size:clamp(21px,2.5vw,29px);line-height:1.42;max-width:26em}
-.pt{color:var(--cobalt);font-weight:600}
-.footnote{margin-top:clamp(48px,6vw,64px);font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--ink-45)}
-/* ---------- source -> signal ---------- */
-.chiprow{display:flex;flex-wrap:wrap;gap:10px;margin-top:clamp(28px,4vw,38px);max-width:46em}
-.chip{font-family:var(--mono);font-size:11.5px;letter-spacing:.07em;padding:8px 13px;border:1px solid var(--line);background:var(--elev);border-radius:3px;white-space:nowrap}
-.flow{display:grid;grid-template-columns:1fr;gap:clamp(26px,4vw,48px);align-items:center;margin-top:clamp(48px,6vw,76px);padding:clamp(26px,4.5vw,48px);border:1px solid var(--line);background:var(--elev)}
-.flow-col h4{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-45);font-weight:500;margin-bottom:16px}
-.src{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--ink-60);display:grid;gap:9px}
-.src span{border-left:2px solid var(--line);padding-left:12px}
-.resolve-cell{display:flex;align-items:center;gap:14px;justify-self:start}
-.resolve{font-family:var(--mono);font-size:11px;letter-spacing:.2em;border:1px solid var(--ink);padding:10px 18px;border-radius:2px}
-.flow-arrow{font-family:var(--mono);font-size:14px;color:var(--ink-45)}
-.out{display:flex;flex-wrap:wrap;gap:8px}
-.out .chip{background:var(--paper)}
-.reasons-line{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--ink-45);margin-top:14px}
-.pipe-note{font-style:italic;color:var(--ink-60);margin-top:clamp(30px,4vw,40px);max-width:30em}
-.pipe-note strong{color:var(--ink);font-weight:600}
+  :root{
+    --paper:#F6F4EF; --ink:#1A1815; --cobalt:#1E3A8A; --cobalt-bright:#2A4FB8;
+    --surface:#FFFFFF; --surface-alt:#F0EDE6; --map:#ECE5D5;
+    --border:#E0DDD4; --hair:rgba(26,24,21,.12);
+    --fg2:#4E4B45; --muted:#8C887E; --faint:#B4B0A4;
+    --ok:#1A7D4A; --warn:#B85C00;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",sans-serif;
+    --maxw:900px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --paper:#141210; --ink:#F2EFE8; --cobalt:#7E9EDC; --cobalt-bright:#9DB6E8;
+      --surface:#1C1A16; --surface-alt:#211E19; --map:#211D16;
+      --border:#2C2921; --hair:rgba(242,239,232,.14);
+      --fg2:#C4BFB4; --muted:#8E897E; --faint:#5E5A51; --ok:#5FB98A; --warn:#D69152;
+    }
+  }
+  :root[data-theme="light"]{
+    --paper:#F6F4EF; --ink:#1A1815; --cobalt:#1E3A8A; --cobalt-bright:#2A4FB8;
+    --surface:#FFFFFF; --surface-alt:#F0EDE6; --map:#ECE5D5; --border:#E0DDD4;
+    --hair:rgba(26,24,21,.12); --fg2:#4E4B45; --muted:#8C887E; --faint:#B4B0A4; --ok:#1A7D4A; --warn:#B85C00;
+  }
+  :root[data-theme="dark"]{
+    --paper:#141210; --ink:#F2EFE8; --cobalt:#7E9EDC; --cobalt-bright:#9DB6E8;
+    --surface:#1C1A16; --surface-alt:#211E19; --map:#211D16; --border:#2C2921;
+    --hair:rgba(242,239,232,.14); --fg2:#C4BFB4; --muted:#8E897E; --faint:#5E5A51; --ok:#5FB98A; --warn:#D69152;
+  }
 
-/* ---------- two families ---------- */
-.cols{display:grid;grid-template-columns:1fr;gap:clamp(34px,4.5vw,56px);margin-top:clamp(40px,6vw,64px);max-width:62em}
-.col{border-top:2px solid var(--ink);padding-top:22px}
-.col.theirs{border-top:1px solid var(--line)}
-.col h3{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;font-weight:500;margin-bottom:16px}
-.col.theirs h3{color:var(--ink-60)}
-.col p{font-size:18.5px;max-width:26em}
-.validated{font-style:italic;color:var(--ink-60);margin-top:14px;font-size:16.5px;max-width:26em}
-/* ---------- proof ---------- */
-.stats{display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:clamp(44px,6vw,68px)}
-.stat{background:var(--elev);padding:clamp(20px,2.4vw,28px) clamp(18px,2vw,24px)}
-.stat b{display:block;font-family:var(--mono);font-weight:600;font-size:clamp(24px,2.1vw,31px);letter-spacing:-.02em;line-height:1}
-.stat span{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.05em;line-height:1.55;color:var(--ink-60);margin-top:10px}
-.map-fig{margin-top:clamp(48px,6vw,72px);max-width:900px;overflow-x:auto}
-.map-fig svg{width:100%;height:auto;display:block;min-width:620px}
-.cta-row{display:flex;flex-wrap:wrap;gap:14px 38px;margin-top:clamp(44px,6vw,64px);align-items:baseline}
-.cta{font-style:italic;font-size:19px;border-bottom:1px solid var(--line);padding-bottom:3px;transition:border-color .25s ease}
-.cta:hover{border-color:var(--ink)}
-.cta.cobalt{color:var(--cobalt);border-color:rgba(30,58,138,.35)}
-.cta.cobalt:hover{border-color:var(--cobalt)}
-/* ---------- domains ---------- */
-.lens-grid{display:grid;grid-template-columns:1fr;gap:clamp(18px,2.6vw,30px);margin-top:clamp(40px,6vw,64px)}
-.lens{background:var(--elev);border:1px solid var(--line);padding:clamp(26px,4vw,46px);display:flex;flex-direction:column;align-items:flex-start}
-.lens h3{font-family:var(--mono);font-size:12px;letter-spacing:.22em;font-weight:600}
-.lens-sub{font-style:italic;color:var(--ink-60);margin:12px 0 16px}
-.lens p{max-width:28em}
-.lens .cta{margin-top:auto;padding-top:26px;font-size:17.5px;border-bottom:0}
-.lens .cta em{border-bottom:1px solid var(--line);padding-bottom:3px;font-style:inherit}
-.lens .cta:hover em{border-color:var(--ink)}
-.soonrail{display:flex;flex-wrap:wrap;gap:14px 34px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--ink-45);margin-top:clamp(34px,4.5vw,48px);padding-top:26px;border-top:1px dashed var(--line)}
-.lens-foot{margin-top:26px;color:var(--ink-60);font-size:17px}
-/* ---------- consented ---------- */
-.c-grid{display:grid;grid-template-columns:1fr;gap:clamp(34px,4.5vw,52px);margin-top:clamp(44px,6vw,68px);max-width:64em}
-.c-item h3{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;font-weight:600;margin-bottom:14px}
-.c-item p{font-size:18px;max-width:24em}
-.reason-eg{display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:.04em;margin-top:16px;padding:9px 13px;border:1px solid var(--line);background:var(--elev);border-radius:3px}
-/* ---------- research + closing ---------- */
-.sub{color:var(--ink-60);font-size:clamp(18px,1.9vw,22px);margin-top:18px;max-width:30em}
-.pubs{margin-top:clamp(44px,6vw,64px);border-top:1px solid var(--line)}
-.pub{display:grid;grid-template-columns:1fr;gap:6px 30px;padding:clamp(20px,2.6vw,30px) 0;border-bottom:1px solid var(--line-soft)}
-.pub-date{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--ink-45);padding-top:.5em;white-space:nowrap}
-.pub h3{font-size:clamp(20px,2vw,25px);font-weight:600;letter-spacing:-.01em}
-.pub p{color:var(--ink-60);margin-top:6px;max-width:36em}
-.patents{display:flex;flex-wrap:wrap;gap:10px 30px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--ink-60);line-height:1.8}
-.closing{margin-top:clamp(70px,9vw,110px);padding-top:clamp(50px,6vw,72px);border-top:1px solid var(--line)}
-.closing-lede{font-size:clamp(22px,2.7vw,32px);line-height:1.4;max-width:26em}
-.mark{font-weight:600;font-size:clamp(30px,4.2vw,52px);line-height:1.12;letter-spacing:-.015em;margin-top:clamp(36px,5vw,54px);max-width:14em;text-wrap:balance}
-.closing .cta-row{margin-top:clamp(40px,5vw,56px)}
-/* ---------- footer ---------- */
-footer{border-top:1px solid var(--line);padding:30px 0 44px}
-.foot{display:flex;flex-wrap:wrap;gap:12px 30px;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--ink-45)}
-.foot .brand{font-size:11px;color:var(--ink)}
-/* ---------- reveal ---------- */
-.js .rv{opacity:0;transform:translateY(16px);transition:opacity .75s cubic-bezier(.2,.6,.2,1),transform .75s cubic-bezier(.2,.6,.2,1)}
-.js .rv.in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none;transition:none}}
-/* ---------- responsive ---------- */
-@media (min-width:700px){
-  .stats{grid-template-columns:repeat(2,1fr)}
-  .stat:last-child{grid-column:1/-1}
-  .pub{grid-template-columns:120px 1fr}
-}
-@media (min-width:768px){
-  .hero-grid{grid-template-columns:minmax(0,7fr) minmax(0,3fr)}
-  .cols{grid-template-columns:1fr 1fr}
-  .lens-grid{grid-template-columns:1fr 1fr}
-  .flow{grid-template-columns:minmax(150px,1fr) auto minmax(0,1.6fr)}
-  .c-grid{grid-template-columns:repeat(3,1fr)}
-}
-@media (min-width:1100px){
-  .stats{grid-template-columns:repeat(5,1fr)}
-  .stat:last-child{grid-column:auto}
-}
-@media (max-width:480px){
-  .beat{grid-template-columns:1fr}
-  .beat-n{padding-top:0}
-  .nav-links{gap:12px}
-}
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--serif); font-size:17px; line-height:1.6;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px 100px}
+  .prose{max-width:66ch}
+  p{margin:0 0 1.05em}
+  a{color:var(--cobalt); text-underline-offset:2px}
+  a:focus-visible{outline:2px solid var(--cobalt); outline-offset:3px; border-radius:2px}
+  strong{font-weight:600}
+  .mono{font-family:var(--mono)}
+  .eyebrow{font-family:var(--mono); font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--cobalt); margin:0}
+  .kicker{font-family:var(--mono); font-size:.7rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin:0 0 12px}
+
+  /* hero */
+  header{padding:60px 28px 20px; border-bottom:1px solid var(--border)}
+  .head-in{max-width:var(--maxw); margin:0 auto}
+  h1{font-family:var(--serif); font-weight:600; font-size:clamp(2.1rem,6vw,3.4rem);
+    line-height:1.04; letter-spacing:-.015em; margin:16px 0 0; text-wrap:balance; max-width:15ch}
+  .dek{font-size:clamp(1.05rem,2.4vw,1.26rem); color:var(--fg2); margin:20px 0 0; max-width:54ch; line-height:1.5}
+  .canvas-wrap{position:relative; margin:34px auto 6px; max-width:var(--maxw)}
+  canvas{width:100%; aspect-ratio:16/9; display:block; background:var(--map);
+    border:1px solid var(--border); border-radius:4px}
+  .canvas-cap{display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;
+    font-family:var(--mono); font-size:.68rem; letter-spacing:.06em; color:var(--muted);
+    text-transform:uppercase; margin-top:10px}
+  .thesis{font-family:var(--serif); font-style:italic; font-size:1.3rem; color:var(--ink); margin:22px 0 2px; text-align:center}
+
+  section{margin-top:64px}
+  h2{font-family:var(--serif); font-weight:600; font-size:clamp(1.4rem,3.4vw,1.8rem);
+    line-height:1.14; letter-spacing:-.01em; margin:0 0 8px; text-wrap:balance}
+  h3{font-family:var(--serif); font-weight:600; font-size:1.14rem; margin:0 0 6px}
+
+  /* arc strip */
+  .arc{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border);
+    border:1px solid var(--border); border-radius:4px; overflow:hidden; margin-top:22px}
+  .arc>div{background:var(--surface); padding:16px 16px 18px}
+  .arc .n{font-family:var(--mono); font-size:.64rem; letter-spacing:.12em; color:var(--cobalt); text-transform:uppercase}
+  .arc h4{font-family:var(--serif); font-weight:600; font-size:1.02rem; margin:8px 0 5px}
+  .arc p{font-size:.86rem; color:var(--fg2); margin:0; line-height:1.42}
+  @media(max-width:640px){.arc{grid-template-columns:repeat(2,1fr)}}
+
+  /* film storyboard */
+  .beat{display:grid; grid-template-columns:180px 1fr; gap:24px; padding:22px 0; border-bottom:1px solid var(--border); align-items:start}
+  .beat:last-of-type{border-bottom:none}
+  .frame{position:relative; aspect-ratio:16/10; background:var(--map); border:1px solid var(--border);
+    border-radius:3px; overflow:hidden;
+    background-image:linear-gradient(var(--hair) 1px,transparent 1px),linear-gradient(90deg,var(--hair) 1px,transparent 1px);
+    background-size:14px 14px}
+  .frame .tc{position:absolute; top:6px; left:8px; font-family:var(--mono); font-size:.6rem; letter-spacing:.08em; color:var(--muted)}
+  .dot{position:absolute; width:7px; height:7px; border-radius:50%; background:var(--cobalt)}
+  .ring{position:absolute; border:1.5px solid var(--cobalt); border-radius:50%}
+  .cell{position:absolute; background:var(--cobalt)}
+  .phone{position:absolute; border:1.6px solid var(--ink); border-radius:4px}
+  .arrow{position:absolute; height:1.4px; background:var(--faint)}
+  .beat .action{font-size:.98rem; color:var(--fg2); margin:0 0 8px; line-height:1.46}
+  .beat .type-line{font-family:var(--serif); font-weight:600; font-size:1.08rem; color:var(--ink); margin:0}
+  .beat .type-line.thesis-line{color:var(--cobalt); font-style:italic}
+  .beat .bmeta{font-family:var(--mono); font-size:.64rem; letter-spacing:.1em; text-transform:uppercase; color:var(--cobalt); margin:0 0 8px; display:flex; gap:10px; flex-wrap:wrap}
+  .beat .bmeta .role{color:var(--muted)}
+  @media(max-width:600px){.beat{grid-template-columns:1fr; gap:12px}.frame{max-width:220px}}
+
+  /* module cards */
+  .cards{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:22px}
+  .card{background:var(--surface); border:1px solid var(--border); border-radius:5px; padding:18px 18px 20px}
+  .card.hero-card{grid-column:1/-1; border-color:var(--cobalt); border-width:1.5px; background:var(--surface-alt)}
+  .card .tag{font-family:var(--mono); font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--cobalt)}
+  .card .buyer{font-family:var(--mono); font-size:.62rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); float:right}
+  .card h3{margin:12px 0 6px; font-size:1.08rem}
+  .card p{font-size:.88rem; color:var(--fg2); margin:0; line-height:1.46}
+  .flow{font-family:var(--mono); font-size:.72rem; color:var(--muted); margin:10px 0 0; line-height:1.5}
+  .flow b{color:var(--ink); font-weight:600}
+  @media(max-width:600px){.cards{grid-template-columns:1fr}}
+
+  /* postcode toggle mock */
+  .toggle-demo{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:18px}
+  .mini{background:var(--map); border:1px solid var(--border); border-radius:4px; aspect-ratio:4/3; position:relative; overflow:hidden}
+  .mini .lab{position:absolute; bottom:8px; left:10px; font-family:var(--mono); font-size:.6rem; letter-spacing:.08em; text-transform:uppercase; color:var(--fg2); background:var(--paper); padding:2px 6px; border-radius:2px}
+  @media(max-width:520px){.toggle-demo{grid-template-columns:1fr}}
+
+  /* hinge */
+  .hinge{background:var(--surface-alt); border:1px solid var(--border); border-left:3px solid var(--cobalt);
+    border-radius:4px; padding:24px 26px; margin-top:24px}
+  .hinge p{font-size:1.06rem; margin:0 0 .7em}
+  .hinge p:last-child{margin-bottom:0}
+  .hinge .q{color:var(--cobalt); font-style:italic}
+
+  ul.check{list-style:none; padding:0; margin:16px 0 0; max-width:66ch}
+  ul.check li{position:relative; padding:11px 0 11px 28px; border-bottom:1px solid var(--border); font-size:.98rem}
+  ul.check li:last-child{border-bottom:none}
+  ul.check li::before{content:""; position:absolute; left:2px; top:18px; width:8px; height:8px; border:1.5px solid var(--cobalt); border-radius:2px}
+  ul.check li b{font-weight:600}
+
+  .note{font-family:var(--mono); font-size:.8rem; line-height:1.55; color:var(--fg2);
+    background:var(--surface); border:1px solid var(--border); border-radius:4px; padding:14px 16px; margin:20px 0}
+  .note .k{color:var(--warn); font-weight:600}
+
+  footer{margin-top:60px; border-top:1px solid var(--border); padding-top:20px;
+    font-family:var(--mono); font-size:.72rem; color:var(--faint); letter-spacing:.03em}
+  .cta{font-family:var(--mono); font-size:.82rem; letter-spacing:.04em; color:var(--cobalt); font-weight:600}
+  @media(max-width:560px){body{font-size:16px}.wrap{padding:0 20px 80px}header{padding:44px 20px 18px}}
 </style>
-</head>
-<body>
 
-<header class="wrap">
-  <nav class="nav" aria-label="Primary">
-    <a class="brand" href="#top">
-      <svg width="15" height="17" viewBox="0 0 14 16" aria-hidden="true"><path d="M7 .9 13.1 4.45v7.1L7 15.1.9 11.55v-7.1Z" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>
-      JANUS
-    </a>
-    <div class="nav-links">
-      <a href="https://skay97-curbai.hf.space" target="_blank" rel="noopener">Atlas&nbsp;&rarr;</a><span class="nav-dot">·</span>
-      <a href="#domains">Domains</a><span class="nav-dot">·</span>
-      <a href="#research">Research</a><span class="nav-dot">·</span>
-      <a href="#contact">&rarr;&nbsp;Talk to us</a>
+<header>
+  <div class="head-in">
+    <p class="eyebrow">Janus / The Proof Layer</p>
+    <h1>Show them the signal.</h1>
+    <p class="dek">One idea, two formats: a 55-second film and an interactive showcase that prove the representation engine on data anyone can get — so the viewer finishes the sentence: <em>“…now imagine it on mine.”</em></p>
+    <div class="canvas-wrap">
+      <canvas id="resolve" aria-label="Animation: scattered location pings resolving into a legible signal surface, then the raw trace evaporating while the surface remains."></canvas>
+      <div class="canvas-cap">
+        <span>Live · the core “aha,” looping</span>
+        <span>Raw pings → signal surface → trace gone, signal stays</span>
+      </div>
+      <p class="thesis">“The signal stays. The trace doesn’t.”</p>
     </div>
-  </nav>
+  </div>
 </header>
 
-<main id="top">
+<div class="wrap">
 
-<!-- FOLD 0 · HERO -->
-<section class="hero wrap" aria-label="Hero">
-  <svg class="hex-bg" viewBox="0 0 720 560" aria-hidden="true">
-    <defs>
-      <pattern id="hex" width="56" height="100" patternUnits="userSpaceOnUse" patternTransform="scale(1.45)">
-        <path d="M28 66 0 50 0 16 28 0 56 16 56 50 28 66V100" fill="none" stroke="rgba(26,24,21,.085)" stroke-width="1"/>
-      </pattern>
-      <radialGradient id="fade" cx="62%" cy="34%" r="62%">
-        <stop offset="0" stop-color="#fff" stop-opacity=".9"/>
-        <stop offset=".75" stop-color="#fff" stop-opacity=".25"/>
-        <stop offset="1" stop-color="#fff" stop-opacity="0"/>
-      </radialGradient>
-      <mask id="hexmask"><rect width="720" height="560" fill="url(#fade)"/></mask>
-    </defs>
-    <rect width="720" height="560" fill="url(#hex)" mask="url(#hexmask)"/>
-  </svg>
-  <div class="hero-grid">
-    <h1>Grounding machine intelligence.</h1>
-    <aside>
-      <p class="rail-lede">The context layer for the physical world.</p>
-      <div class="rail-rule"></div>
-      <p class="rail-body">Janus powers <strong>location intelligence</strong> for teams that build in the real world.</p>
-    </aside>
-  </div>
-</section>
+  <section>
+    <p class="kicker">The spine both formats share</p>
+    <h2>Noise → legibility → value → private by construction</h2>
+    <p class="prose">The whole trick is to make the transformation the star, on data that carries zero consent baggage — then let the wedge land as a feeling, not a bullet.</p>
+    <div class="arc">
+      <div><p class="n">01 · Raw</p><h4>Noise</h4><p>A firehose of meaningless pings. This is location data as everyone has it.</p></div>
+      <div><p class="n">02 · Turn</p><h4>Legibility</h4><p>The representation engine sweeps through; noise resolves into structure.</p></div>
+      <div><p class="n">03 · So what</p><h4>Value</h4><p>Structure becomes a decision — a price, a route, a warning. Someone pays for this.</p></div>
+      <div><p class="n">04 · The wedge</p><h4>By consent</h4><p>And the ping never touched a person. Now imagine it on the one signal only you can hold.</p></div>
+    </div>
+  </section>
 
-<!-- FOLD 1 · THE GAP -->
-<section aria-labelledby="gap-h">
-  <div class="wrap">
-    <p class="eyebrow rv">&sect;01 &middot; the gap</p>
-    <h2 id="gap-h" class="rv">The web got a substrate. The&nbsp;world never did.</h2>
-    <div class="beats">
-      <div class="beat rv">
-        <span class="beat-n">/01</span>
-        <p>Cookies turned every click into signal. Everything offline stayed dark — the commute, the café, the late-night drive.</p>
+  <section>
+    <p class="kicker">Format one · the film</p>
+    <h2>A 55-second launch film, re-scored from the geo-index animation</h2>
+    <p class="prose">We don’t start from scratch — <span class="mono">hero-narrative.html</span> already renders the paper-and-cobalt morph (globe → grid → traces → <em>resolve</em> → buildings). The film is that engine with two beats added — the <em>old way gets caught</em> before, the <em>signal becomes a decision</em> after — and a score. Kinetic type carries it; VO is optional (it must survive silent autoplay in a cold email).</p>
+
+    <div class="beat">
+      <div class="frame" aria-hidden="true"><span class="tc">0:00</span>
+        <span class="dot" style="left:46%;top:40%"></span>
+        <span class="ring" style="left:40%;top:33%;width:24px;height:24px"></span>
       </div>
-      <div class="beat rv">
-        <span class="beat-n">/02</span>
-        <p>What exists stops at the postcode. On public NYC data, <strong class="pt">64% of block-level crash-risk variation lives <em>inside</em> the ZIP</strong> — invisible to every area-level product.</p>
-      </div>
-      <div class="beat rv">
-        <span class="beat-n">/03</span>
-        <p>Where someone went yesterday predicts 93% of tomorrow.* The substrate is buildable now — consented movement in, defensible signal out.</p>
+      <div>
+        <p class="bmeta">0:00–0:05 · Hook <span class="role">unease</span></p>
+        <p class="action">One cobalt ping threads the faint paper grid; a thin ink reticle follows it — something is watching a single step.</p>
+        <p class="type-line">“Every step is a signal.”</p>
       </div>
     </div>
-    <p class="footnote rv">* Song, Qu, Blumm &amp; Barab&aacute;si &middot; Science &middot; 2010</p>
-  </div>
-</section>
 
-<!-- FOLD 2 · §A SOURCE → SIGNAL -->
-<section aria-labelledby="a-h">
-  <div class="wrap">
-    <p class="eyebrow rv">source &rarr; signal</p>
-    <h2 id="a-h" class="rv">Telematics is a source. Signal is what we derive.</h2>
-    <p class="lede rv">Apps, OBD dongles, connected cars, fleet boxes, check-ins — wherever movement comes from, Janus turns it into features a model can defend:</p>
-    <div class="chiprow rv" role="list">
-      <span class="chip" role="listitem">MILEAGE</span>
-      <span class="chip" role="listitem">TIME_OF_DAY</span>
-      <span class="chip" role="listitem">ROUTE_TYPE</span>
-      <span class="chip" role="listitem">HOME/WORK_ANCHORS</span>
-      <span class="chip" role="listitem">TRIP_CONSISTENCY</span>
-      <span class="chip" role="listitem">HIGHWAY_VS_LOCAL</span>
+    <div class="beat">
+      <div class="frame" aria-hidden="true"><span class="tc">0:07</span>
+        <span class="dot" style="left:20%;top:30%"></span><span class="dot" style="left:35%;top:55%"></span>
+        <span class="dot" style="left:52%;top:38%"></span><span class="dot" style="left:44%;top:66%"></span>
+        <span class="dot" style="left:28%;top:72%"></span>
+        <span class="arrow" style="left:56%;top:44%;width:34%"></span>
+        <span style="position:absolute;right:6px;top:38%;width:10px;height:16px;border:1.4px solid var(--faint)"></span>
+      </div>
+      <div>
+        <p class="bmeta">0:05–0:12 · Problem <span class="role">tension</span></p>
+        <p class="action">The ping multiplies into thousands of identifiable traces; thin arrows peel them off toward faceless broker marks. A dry ink stamp lands: <span class="mono">SOLD · BREACHED</span>.</p>
+        <p class="type-line">“Today, it becomes someone else’s.”</p>
+      </div>
     </div>
-    <div class="flow rv" aria-label="Sources resolve into derived features">
-      <div class="flow-col">
-        <h4>Sources</h4>
-        <div class="src">
-          <span>APPS</span>
-          <span>OBD&nbsp;DONGLES</span>
-          <span>CONNECTED&nbsp;CARS</span>
-          <span>FLEET&nbsp;BOXES</span>
-          <span>CHECK-INS</span>
+
+    <div class="beat">
+      <div class="frame" aria-hidden="true"><span class="tc">0:15</span>
+        <span class="phone" style="left:44%;top:28%;width:12%;height:44%"></span>
+        <span class="ring" style="left:36%;top:26%;width:52px;height:52px;opacity:.6"></span>
+        <span class="ring" style="left:30%;top:19%;width:82px;height:82px;opacity:.3"></span>
+      </div>
+      <div>
+        <p class="bmeta">0:12–0:20 · The turn <span class="role">the question</span></p>
+        <p class="action">Everything collapses inward to a single phone outline. A cobalt pulse fires <em>outward</em> from the device — origin, not extraction. The whole film pivots here.</p>
+        <p class="type-line">“What if it never left?”</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <div class="frame" aria-hidden="true"><span class="tc">0:28</span>
+        <span class="cell" style="left:26%;top:30%;width:11px;height:11px;opacity:.85"></span>
+        <span class="cell" style="left:40%;top:36%;width:11px;height:11px;opacity:.6"></span>
+        <span class="cell" style="left:52%;top:30%;width:11px;height:11px;opacity:.9"></span>
+        <span class="cell" style="left:46%;top:50%;width:11px;height:11px;opacity:.45"></span>
+        <span class="cell" style="left:60%;top:46%;width:11px;height:11px;opacity:.7"></span>
+        <span class="cell" style="left:34%;top:52%;width:11px;height:11px;opacity:.5"></span>
+      </div>
+      <div>
+        <p class="bmeta">0:20–0:35 · Reveal <span class="role">the map carries it</span></p>
+        <p class="action">The breadcrumb trace dissolves tail-first, and as it evaporates it <em>resolves upward</em> into a clean geo-index — paper cells ignite cobalt at varying weight. A legible surface, rising out of the noise. (This is the crash-surface language, abstracted.)</p>
+        <p class="type-line">“Raw location, made readable.”</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <div class="frame" aria-hidden="true"><span class="tc">0:38</span>
+        <span class="cell" style="left:26%;top:30%;width:12px;height:12px;opacity:.9"></span>
+        <span class="cell" style="left:52%;top:30%;width:12px;height:12px;opacity:1"></span>
+        <span class="cell" style="left:60%;top:46%;width:12px;height:12px;opacity:.8"></span>
+        <span class="cell" style="left:40%;top:36%;width:12px;height:12px;opacity:.65"></span>
+      </div>
+      <div>
+        <p class="bmeta">0:35–0:42 · The aha <span class="role">the single moment</span></p>
+        <p class="action">The identifiable path fades to nothing; the index stays bright and usable. Hold it one beat longer than comfortable. This frame <em>is</em> the product thesis.</p>
+        <p class="type-line thesis-line">“The signal stays. The trace doesn’t.”</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <div class="frame" aria-hidden="true"><span class="tc">0:46</span>
+        <span class="cell" style="left:22%;top:28%;width:9px;height:9px;opacity:.7"></span>
+        <span class="cell" style="left:34%;top:40%;width:9px;height:9px;opacity:.55"></span>
+        <span class="cell" style="left:48%;top:32%;width:9px;height:9px;opacity:.8"></span>
+        <span class="cell" style="left:62%;top:44%;width:9px;height:9px;opacity:.6"></span>
+        <span style="position:absolute;right:12%;top:60%;font-family:var(--mono);font-size:9px;color:var(--cobalt)">▲ price</span>
+        <span style="position:absolute;left:14%;top:62%;font-family:var(--mono);font-size:9px;color:var(--muted)">↳ route</span>
+      </div>
+      <div>
+        <p class="bmeta">0:42–0:50 · Payoff <span class="role">quiet power</span></p>
+        <p class="action">Pull back: a calm field of cells feeding a few abstract decisions across small industry marks. Not fifteen features — one grammar, many outputs.</p>
+        <p class="type-line">“Consented movement in. Defensible signal out.”</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <div class="frame" aria-hidden="true"><span class="tc">0:53</span>
+        <span style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:var(--serif);font-weight:600;font-size:15px;color:var(--ink);letter-spacing:.02em">JANUS</span>
+      </div>
+      <div>
+        <p class="bmeta">0:50–0:55 · Close <span class="role">the ask</span></p>
+        <p class="action">Wordmark resolves on paper. One line under it. A verb, an arrow.</p>
+        <p class="type-line">Janus — device-originated location infrastructure. <a class="cta" href="https://skay97-curbai.hf.space" target="_blank" rel="noopener" style="text-decoration:none">Open the Atlas — live New York →</a> <span style="opacity:.5">·</span> <a class="cta" href="argument/" style="text-decoration:none">Read the argument →</a></p>
+      </div>
+    </div>
+
+    <div class="note"><span class="k">Production, on-brand:</span> paper ground (<span class="mono">#F6F4EF</span>), cobalt as the <em>only</em> signal colour (one moment per beat), abstracted vector grid — never a recognisable Google/Apple map (reads cheap + legal risk). Generate the real data motion in deck.gl / MapLibre (a genuine trace aggregating into cells), composite in After Effects; reuse the loops on the site as Rive/Lottie. Sound is non-negotiable: a low drone under the dread, one resolve-swell + chime at 0:38, tight ticks on each type snap. No footage, no faces — the map <em>is</em> the footage.</div>
+  </section>
+
+  <section>
+    <p class="kicker">Format two · the showcase</p>
+    <h2>The proof no customer, no device, no consent could accuse us of</h2>
+    <p class="prose">The site’s hero <em>is</em> that transform, running live on real open data. Below it, a menu of proof modules — each a different public dataset made legible, each pointed at a buyer. The hero module carries the pitch.</p>
+
+    <div class="cards">
+      <div class="card hero-card">
+        <span class="tag">Hero module</span><span class="buyer">Insurers · Reinsurers · Vision-Zero cities · fleets</span>
+        <h3>The crash surface no postcode can see</h3>
+        <p>~2M geocoded NYC collisions, divided by an Overture-built exposure denominator, resolved to 100 m cells and animated by hour-of-day and rain. Raw density just recovers “where the cars are”; normalising by exposure surfaces the genuinely <em>dangerous</em> places that aren’t merely busy — TNEDICCA’s “true risk,” from zero private data.</p>
+        <p class="flow"><b>NYC Collisions + Overture</b> → exposure-normalised H3-r10 surface → <b>“this corner, not that ZIP”</b> → sell the map.</p>
+        <div class="toggle-demo">
+          <div class="mini"><canvas id="zip" width="240" height="180"></canvas><span class="lab">Postcode · blind</span></div>
+          <div class="mini"><canvas id="cell" width="240" height="180"></canvas><span class="lab">100 m cell · legible</span></div>
         </div>
       </div>
-      <div class="resolve-cell">
-        <span class="flow-arrow">&rarr;</span>
-        <span class="resolve">resolve</span>
-        <span class="flow-arrow">&rarr;</span>
-      </div>
-      <div class="flow-col">
-        <h4>Derived features</h4>
-        <div class="out">
-          <span class="chip">MILEAGE</span>
-          <span class="chip">ROUTE_TYPE</span>
-          <span class="chip">ANCHORS</span>
-          <span class="chip">CONSISTENCY</span>
-        </div>
-        <p class="reasons-line">+ reasons attached, on every call</p>
-      </div>
-    </div>
-    <p class="pipe-note rv">We sit <strong>above</strong> the pipes; we don&rsquo;t compete with them.</p>
-  </div>
-</section>
 
-<!-- FOLD 3 · §B TWO FAMILIES -->
-<section aria-labelledby="b-h">
-  <div class="wrap">
-    <p class="eyebrow rv">where &ne; how</p>
-    <h2 id="b-h" class="rv">Where you drive is not how you drive.</h2>
-    <div class="cols">
-      <div class="col rv">
-        <h3>WHERE / WHEN&ensp;(ours)</h3>
-        <p>Mileage, time of day, route type, anchors, consistency, highway-vs-local exposure.</p>
-        <p class="validated">Validated: past exposure ranks future path hazard on 1,862 real NYC trajectories (leave-future-out).</p>
+      <div class="card">
+        <span class="tag">Module</span><span class="buyer">Robotics · logistics</span>
+        <h3>Where GPS lies</h3>
+        <p>Tower density (OpenCellID) × street geometry → a surface of where a raw coordinate is trustworthy versus garbage in the urban canyon.</p>
+        <p class="flow"><b>OpenCellID + roads</b> → fix-uncertainty field → <b>trust map</b>.</p>
       </div>
-      <div class="col theirs rv">
-        <h3>HOW&ensp;(yours / your vendor&rsquo;s)</h3>
-        <p>Braking, acceleration, cornering, phone use. Bring your own events — the term composes; it is never required.</p>
+      <div class="card">
+        <span class="tag">Module</span><span class="buyer">Retail · CRE · QSR</span>
+        <h3>The 15-minute catchment</h3>
+        <p>Transit + footprints + commute data → per-building “who can reach this, which mode, what hour” — catchment that ignores admin lines.</p>
+        <p class="flow"><b>GTFS + Overture + LODES</b> → reachability → <b>siting index</b>.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Module</span><span class="buyer">Parametric · utilities</span>
+        <h3>The city breathes</h3>
+        <p>Daytime workers vs. residents → population that swings 10× between 3am and 5pm, so risk denominators move with the clock.</p>
+        <p class="flow"><b>LODES + ACS + Places</b> → diurnal exposure → <b>true denominator</b>.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Module</span><span class="buyer">Mobility · transit</span>
+        <h3>Movement grammar</h3>
+        <p>Public trip records → an origin-destination flow field and learned catchments — the shape of how a city actually moves.</p>
+        <p class="flow"><b>TLC trips + tracts</b> → OD tensor → <b>flow embeddings</b>.</p>
       </div>
     </div>
-    <p class="fold-close rv">We derive the first family from any consented source. We compose with the second. We replace neither.</p>
-  </div>
-</section>
 
-<!-- FOLD 4 · §D PROOF -->
-<section aria-labelledby="d-h">
-  <div class="wrap">
-    <p class="eyebrow rv">proof &middot; open data &middot; nyc</p>
-    <h2 id="d-h" class="rv">Pricing the block, not the postcode.</h2>
-    <div class="stats rv">
-      <div class="stat"><b>64%</b><span>of crash-risk variance lives WITHIN the ZIP</span></div>
-      <div class="stat"><b>5%</b><span>of blocks carry 33% of severe crashes</span></div>
-      <div class="stat"><b>+0.66</b><span>cell resolution beats the territory floor</span></div>
-      <div class="stat"><b>1,862</b><span>exposure index validated on real trajectories</span></div>
-      <div class="stat"><b>43%</b><span>of blocks have no crash history — we read them anyway</span></div>
+    <div class="hinge">
+      <p><strong>The hinge</strong> — open with the flex, close with the gap:</p>
+      <p class="q">“This crash-risk surface for all of New York was built from zero customer data, zero devices, zero consent.”</p>
+      <p>“It knows this corner is dangerous. It <em>cannot</em> know that your policyholder drives it at 5pm, in the rain, twice a day.”</p>
+      <p>Open data is the <strong>stage</strong> — a place’s static risk. Your consented device signal is the <strong>actor</strong> — who moves through it, when, how. <span class="q">“Run the same engine on your stream: identical features, but per-person, per-trip, live.”</span></p>
     </div>
-    <figure class="map-fig rv">
-      <svg viewBox="0 0 760 442" role="img" aria-label="Three stacked map layers: a flat ZIP choropleth, a fine block surface, and individual crash points">
-        <defs>
-          <clipPath id="plate"><path d="M110 0H560L450 112H0Z"/></clipPath>
-          <pattern id="cells" width="32" height="28" patternUnits="userSpaceOnUse" patternTransform="skewX(-44.5)">
-            <path d="M0 0H32M0 0V28" fill="none" stroke="rgba(26,24,21,.14)" stroke-width="1"/>
-          </pattern>
-        </defs>
-        <!-- bottom · ZIP choropleth -->
-        <g transform="translate(40,318)">
-          <g clip-path="url(#plate)">
-            <path d="M110 0H260L150 112H0Z" fill="#E7DFCB"/>
-            <path d="M260 0H400L335 60 290 112H150Z" fill="#ECE5D5"/>
-            <path d="M400 0H560L450 112H290L335 60Z" fill="#E1D7BE"/>
-            <path d="M260 0 150 112M400 0 335 60 290 112M335 60 450 112" fill="none" stroke="rgba(26,24,21,.18)" stroke-width="1"/>
-          </g>
-          <path d="M110 0H560L450 112H0Z" fill="none" stroke="rgba(26,24,21,.28)" stroke-width="1"/>
-          <path d="M515 56H588" stroke="rgba(26,24,21,.22)" stroke-dasharray="3 4"/>
-          <text x="596" y="59" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="10" letter-spacing="2" fill="rgba(26,24,21,.5)">ZIP CHOROPLETH</text>
-        </g>
-        <!-- middle · block surface -->
-        <g transform="translate(40,166)">
-          <g clip-path="url(#plate)">
-            <rect x="-20" y="-4" width="600" height="120" fill="#FBFAF7"/>
-            <rect x="-20" y="-4" width="600" height="120" fill="url(#cells)"/>
-            <g transform="skewX(-44.5)">
-              <rect x="206" y="28" width="32" height="28" fill="rgba(26,24,21,.10)"/>
-              <rect x="334" y="14" width="32" height="28" fill="rgba(26,24,21,.16)"/>
-              <rect x="270" y="56" width="32" height="28" fill="rgba(26,24,21,.07)"/>
-              <rect x="430" y="56" width="32" height="28" fill="#1E3A8A"/>
-              <rect x="398" y="84" width="32" height="28" fill="rgba(26,24,21,.12)"/>
-            </g>
-          </g>
-          <path d="M110 0H560L450 112H0Z" fill="none" stroke="rgba(26,24,21,.28)" stroke-width="1"/>
-          <path d="M515 56H588" stroke="rgba(26,24,21,.22)" stroke-dasharray="3 4"/>
-          <text x="596" y="59" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="10" letter-spacing="2" fill="rgba(26,24,21,.5)">BLOCK SURFACE</text>
-        </g>
-        <!-- top · crash points -->
-        <g transform="translate(40,14)">
-          <path d="M110 0H560L450 112H0Z" fill="rgba(251,250,247,.5)" stroke="rgba(26,24,21,.28)" stroke-width="1"/>
-          <g fill="rgba(26,24,21,.55)">
-            <circle cx="150" cy="30" r="2"/><circle cx="205" cy="62" r="2"/><circle cx="246" cy="22" r="2"/>
-            <circle cx="172" cy="92" r="2"/><circle cx="300" cy="48" r="2"/><circle cx="262" cy="78" r="2"/>
-            <circle cx="338" cy="86" r="2"/><circle cx="356" cy="34" r="2"/><circle cx="402" cy="58" r="2.6"/>
-            <circle cx="414" cy="70" r="2.6"/><circle cx="394" cy="72" r="2.6"/><circle cx="408" cy="46" r="2.6"/>
-            <circle cx="421" cy="58" r="2.6"/><circle cx="384" cy="58" r="2"/><circle cx="436" cy="40" r="2"/>
-            <circle cx="130" cy="64" r="2"/><circle cx="282" cy="16" r="2"/><circle cx="318" cy="68" r="2"/>
-          </g>
-          <path d="M515 56H588" stroke="rgba(26,24,21,.22)" stroke-dasharray="3 4"/>
-          <text x="596" y="59" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="10" letter-spacing="2" fill="rgba(26,24,21,.5)">CRASH POINTS</text>
-        </g>
-      </svg>
-    </figure>
-    <div class="cta-row rv">
-      <a class="cta" href="https://skay97-curbai.hf.space" target="_blank" rel="noopener">Open the Atlas &mdash; live New York &rarr;</a>
-      <a class="cta" href="#contact">Send us your territory list &rarr;</a>
-    </div>
-  </div>
-</section>
 
-<!-- FOLD 5 · DOMAINS / LENSES -->
-<section id="domains" aria-labelledby="lens-h">
-  <div class="wrap">
-    <p class="eyebrow rv">one signal &middot; many lenses</p>
-    <h2 id="lens-h" class="rv">One trajectory. A different product in every lens.</h2>
-    <div class="lens-grid">
-      <article class="lens rv">
-        <h3>UNDERWRITING</h3>
-        <p class="lens-sub">Insurance &amp; mobility risk.</p>
-        <p>A consented trail becomes a calibrated exposure index with the reasons attached — frequency-side signal where credit can&rsquo;t go and the file is thin.</p>
-        <a class="cta" href="#contact"><em>Read the case study &rarr;</em></a>
-      </article>
-      <article class="lens rv">
-        <h3>PERSONA</h3>
-        <p class="lens-sub">Consumer &amp; location apps.</p>
-        <p>Fourteen days of movement becomes who the user is — home, routine, mode, affinity — for the assistant, the ranker, the feed.</p>
-        <a class="cta" href="#contact"><em>See the X-ray &rarr;</em></a>
-      </article>
-    </div>
-    <div class="soonrail rv">
-      <span>SITING &amp; CATCHMENT — soon</span>
-      <span>FEEDS &amp; RANKING — soon</span>
-      <span>ADS — soon</span>
-    </div>
-    <p class="lens-foot rv">Two lenses are live today. The rail is where the same signal goes next.</p>
-  </div>
-</section>
+    <div class="note"><span class="k">Kept honest (the gap is the pitch):</span> open crash/commute/POI data is aggregate and static — environmental risk, never individual exposure. No identity resolution, no consent provenance, no real-time. Those three are exactly what the device layer supplies — which is why the showcase proves the engine and the customer’s consented stream is the fuel.</div>
+  </section>
 
-<!-- FOLD 6 · §C CONSENTED BY CONSTRUCTION -->
-<section aria-labelledby="c-h">
-  <div class="wrap">
-    <p class="eyebrow rv">consent &middot; explainability &middot; defensibility</p>
-    <h2 id="c-h" class="rv">Location is sensitive. The clean version wins.</h2>
-    <div class="c-grid">
-      <div class="c-item rv">
-        <h3>CONSENTED</h3>
-        <p>Opt-in, per-use consent flags travel with every call. No shadow collection, no way around opt-in — by design, not policy.</p>
-      </div>
-      <div class="c-item rv">
-        <h3>EXPLAINABLE</h3>
-        <p>Every score ships its reasons, in language a customer could be shown.</p>
-        <span class="reason-eg">late-night arterial dwell&nbsp;&nbsp;+0.11</span>
-      </div>
-      <div class="c-item rv">
-        <h3>DEFENSIBLE</h3>
-        <p>Mechanistic features — road geometry, time, exposure, not postcode proxies — disparate-impact tested, with filing-ready documentation.</p>
-      </div>
-    </div>
-    <p class="fold-close rv">The covert version of this industry is in court. We built the consented one.</p>
-  </div>
-</section>
+  <section>
+    <p class="kicker">Build path</p>
+    <h2>What it takes, in order</h2>
+    <ul class="check">
+      <li><b>The showcase hero, first (≈1–2 wks).</b> NYC Collisions (<span class="mono">h9gi-nx95</span>, public domain) + Overture, H3-r10 in MapLibre, the ZIP-vs-cell toggle as the money shot. Ship it as one page in the Geo-2 theme — this is the sales asset that opens doors on its own.</li>
+      <li><b>The film, from the existing engine.</b> Fork <span class="mono">hero-narrative.html</span>; add the SOLD/collapse beat and the decision beat; score it; export a 55s cut + reuse the loops on the site.</li>
+      <li><b>Attribution discipline.</b> Public-domain / CDLA-Permissive / Apache lanes for anything productised; keep ODbL (OSM, Overture buildings) + CC-BY-SA (OpenCellID) to the public demo, where share-alike is fine.</li>
+      <li><b>One line under every module:</b> “…now on your consented data.” The showcase is never the product — it’s the argument for the product.</li>
+    </ul>
+  </section>
 
-<!-- FOLD 7 · RESEARCH + CLOSING -->
-<section id="research" aria-labelledby="r-h">
-  <div class="wrap">
-    <p class="eyebrow rv">research</p>
-    <h2 id="r-h" class="rv">The story underneath the model.</h2>
-    <p class="sub rv">We publish the method, the benchmark, and the negative results. The rigor is the product.</p>
-    <div class="pubs">
-      <div class="pub rv">
-        <span class="pub-date">2026</span>
-        <div><h3>FineGeo-NYC</h3><p>An open benchmark for sub-area and per-user geospatial inference. 9,528 cells, 867,020 crashes, leakage-controlled.</p></div>
-      </div>
-      <div class="pub rv">
-        <span class="pub-date">2026</span>
-        <div><h3>The NYC Risk &amp; Mobility Atlas</h3><p>Where risk actually lives: 64% inside the ZIP; 5% of blocks carry a third of severe crashes.</p></div>
-      </div>
-      <div class="pub rv">
-        <span class="pub-date">2026</span>
-        <div><h3>Reasoning over geo-embeddings</h3><p>What serializing the world to text costs — measured — and the projector that avoids it.</p></div>
-      </div>
-      <div class="pub rv">
-        <span class="pub-date">2025 &middot; ACL</span>
-        <div><h3>Simulating populations from sparse signal.</h3></div>
-      </div>
-      <div class="pub rv">
-        <span class="pub-date">PATENTS</span>
-        <div class="patents">
-          <span>P03309 — inferring institutions from movement</span>
-          <span>P03346 — choosing what to play, show, or sell at a place</span>
-          <span>P03310 — extracting trends from places, at scale</span>
-        </div>
-      </div>
-    </div>
-    <div class="closing rv" id="contact">
-      <p class="closing-lede">We&rsquo;re a small team working at the frontier of <em>geospatial foundation models, visitation analysis, and place embeddings.</em></p>
-      <p class="mark">Consented movement in. Defensible signal out.</p>
-      <div class="cta-row">
-        <a class="cta cobalt" href="#contact">Talk to us &rarr;</a>
-        <a class="cta" href="#contact">Send us your territory list &rarr;</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-</main>
-
-<footer>
-  <div class="wrap foot">
-    <span class="brand">
-      <svg width="13" height="15" viewBox="0 0 14 16" aria-hidden="true"><path d="M7 .9 13.1 4.45v7.1L7 15.1.9 11.55v-7.1Z" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>
-      JANUS
-    </span>
-    <span>&copy; 2026 Janus</span>
-    <span>hello@&hellip;</span>
-  </div>
-</footer>
+  <footer>Janus internal · the proof layer · grounded in three deep-dives (demo-film teardown, open-geodata modules, house-style audit) + the existing geo-index animation. Palette, type, and voice inherited from the live Janus system.</footer>
+</div>
 
 <script>
 (function(){
-  if(!('IntersectionObserver' in window)){document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in')});return}
-  var io=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}
-    })
-  },{rootMargin:'0px 0px -8% 0px',threshold:.06});
-  document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function cvar(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim() || '#1E3A8A';}
+  function smooth(t,a,b){ if(t<=a)return 0; if(t>=b)return 1; var x=(t-a)/(b-a); return x*x*(3-2*x); }
+
+  // deterministic field: a few gaussian hotspots -> a plausible risk surface
+  function field(x,y){
+    var hs=[[0.30,0.40,0.17],[0.66,0.58,0.20],[0.52,0.26,0.11]], w=0,i,dx,dy;
+    for(i=0;i<hs.length;i++){ dx=x-hs[i][0]; dy=y-hs[i][1]; w+=Math.exp(-(dx*dx+dy*dy)/(2*hs[i][2]*hs[i][2])); }
+    return Math.min(1,w);
+  }
+  // seeded points, weighted toward the hotspots
+  var seed=1337; function rnd(){ seed=(seed*1103515245+12345)&0x7fffffff; return seed/0x7fffffff; }
+  var N=150, pts=[], i, cx, cy, w, guard;
+  for(i=0;i<N;i++){ guard=0; do{ cx=rnd(); cy=rnd(); w=field(cx,cy); guard++; } while(rnd()>w*0.9+0.05 && guard<12);
+    pts.push({tx:cx, ty:cy, sx:rnd(), sy:rnd()}); }
+
+  var COLS=18, ROWS=11;
+  var cv=document.getElementById('resolve'), ctx=cv&&cv.getContext('2d'), W,H,DPR;
+  function size(){ if(!cv)return; DPR=Math.min(2,window.devicePixelRatio||1); var r=cv.getBoundingClientRect();
+    W=r.width; H=r.width*9/16; cv.width=W*DPR; cv.height=H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0); }
+  size(); addEventListener('resize',size);
+
+  var t0=null;
+  function draw(ts){
+    if(!ctx){return;}
+    if(t0===null)t0=ts;
+    var t=(((ts-t0)/1000)%11)/11; if(reduce)t=0.78;
+    var cobalt=cvar('--cobalt'), ink=cvar('--ink');
+    ctx.clearRect(0,0,W,H);
+    var pad=W*0.05, gw=W-2*pad, gh=H-2*pad, cw=gw/COLS, ch=gh/ROWS, r,c,x,y,a;
+    var resolve=smooth(t,0.15,0.5), cellUp=smooth(t,0.40,0.72), traceGone=smooth(t,0.62,0.86), loop=smooth(t,0.92,1);
+    // grid
+    ctx.globalAlpha=1; ctx.strokeStyle=ink; ctx.lineWidth=1;
+    ctx.save(); ctx.globalAlpha=0.05;
+    for(c=0;c<=COLS;c++){ ctx.beginPath(); ctx.moveTo(pad+c*cw,pad); ctx.lineTo(pad+c*cw,pad+gh); ctx.stroke(); }
+    for(r=0;r<=ROWS;r++){ ctx.beginPath(); ctx.moveTo(pad,pad+r*ch); ctx.lineTo(pad+gw,pad+r*ch); ctx.stroke(); }
+    ctx.restore();
+    // cells
+    ctx.fillStyle=cobalt;
+    for(r=0;r<ROWS;r++)for(c=0;c<COLS;c++){
+      a=field((c+0.5)/COLS,(r+0.5)/ROWS)*cellUp*(1-loop*0.5);
+      if(a>0.02){ ctx.globalAlpha=a*0.88; x=pad+c*cw; y=pad+r*ch; ctx.fillRect(x+cw*0.10,y+ch*0.10,cw*0.8,ch*0.8); }
+    }
+    // dots (the raw trace) — fade as the surface takes over
+    var dotA=(1-traceGone)*(1-loop);
+    if(dotA>0.02){ ctx.globalAlpha=dotA; ctx.fillStyle=cobalt;
+      for(i=0;i<N;i++){ var px=pts[i].sx+(pts[i].tx-pts[i].sx)*resolve, py=pts[i].sy+(pts[i].ty-pts[i].sy)*resolve;
+        x=pad+px*gw; y=pad+py*gh; ctx.beginPath(); ctx.arc(x,y,2.2,0,6.2832); ctx.fill(); } }
+    ctx.globalAlpha=1;
+    if(!reduce) requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+
+  // ZIP vs cell mini-maps (static): same hotspots, coarse vs fine
+  function mini(id, coarse){
+    var el=document.getElementById(id); if(!el)return; var g=el.getContext('2d'), w=el.width, h=el.height;
+    var cob=cvar('--cobalt'); g.clearRect(0,0,w,h);
+    var C=coarse?4:20, R=coarse?3:15, r,c,a,val,cw=w/C,ch=h/R;
+    g.fillStyle=cob;
+    for(r=0;r<R;r++)for(c=0;c<C;c++){
+      if(coarse){ // average the field over the block -> washed out
+        var s=0,n=0,ix,iy; for(ix=0;ix<5;ix++)for(iy=0;iy<5;iy++){ s+=field((c+ix/5)/C,(r+iy/5)/R); n++; } val=s/n;
+      } else { val=field((c+0.5)/C,(r+0.5)/R); }
+      a=Math.min(1,val*(coarse?0.9:1.1)); if(a>0.03){ g.globalAlpha=a*0.9; g.fillRect(c*cw,r*ch,cw-0.6,ch-0.6); }
+    }
+    g.globalAlpha=1;
+  }
+  function minis(){ mini('zip',true); mini('cell',false); }
+  minis();
+  // redraw minis on theme flip
+  var mo=new MutationObserver(minis); mo.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+  matchMedia('(prefers-color-scheme:dark)').addEventListener&&matchMedia('(prefers-color-scheme:dark)').addEventListener('change',minis);
 })();
 </script>
-</body>
-</html>
